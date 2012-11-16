@@ -1,0 +1,10 @@
+{% block subject %}
+{% autoescape false %}
+{{ 'customer.charge_succeeded.subject'|trans({}, 'AvroStripeBundle') }}
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{{ 'customer.charge_succeeded.message'|trans({'%name%': user.fullName, '%from_name%': from_name}, 'AvroStripeBundle') }}
+{% endautoescape %}
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends '::print.html.twig' %}
+{% block content %}
+    <div class="row-fluid">
+        <div class="span6">
+            <img src="{{ asset('bundles/corebundle/images/lead_checkout_logo_usp.png') }}">
+            <p>LeadCheckout.com <br>
+                101-2230 Wall St.<br>
+                Vancouver, BC, V5L 1B6<br>
+                1-778-997-7529<br>
+                <small>GST Number: R840215727</small><br>
+            </p>
+        </div>
+        <div class="span6">
+            <h3>Invoice</h3>
+            <table>
+                <tr>
+                    <td>Number:</td>
+                    <td>{{ invoice.id }}</td>
+                </tr>
+                <tr>
+                    <td>Customer:</td>
+                    <td>{{ app.user.fullName }}</td>
+                </tr>
+                <tr>
+                    <td>Date:</td>
+                    <td>{{ invoice.date | date('Y-m-d') }}</td>
+                </tr>
+                <tr>
+                    <td>Payment Due:</td>
+                    <td>{{ invoice.period_end }}</td>
+                </tr>
+        </div>
+    </div>
+
+    <p>All amounts in Canadian Dollars.</p>
+    <h1>Summary of Your Charges</h1>
+    <div class="page-header">
+        <h3>New Charges - Oct 1, 2012 to Oct 31, 2012</h3>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <table class="styled table-striped">
+                {% for line in invoice.lines %}
+                    {% set line = line.data %}
+                    {% if line.type == 'subscription' %}
+                        <tr>
+                            <td style="width: 80%;">({{ line.count }}) {{ line.plan.name }}</td>
+                            <td><b>${{ line.amount }}</b></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div class="page-header">
+        <h3>Total</h3>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <table class="styled">
+                <tr>
+                    <td style="width: 80%;">&nbsp;</td>
+                    <td>{{ invoice.total }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <hr>
+    <p>Please do not send payment. This amount will be automatically deducted from your credit card.</p>
+{% endblock %}

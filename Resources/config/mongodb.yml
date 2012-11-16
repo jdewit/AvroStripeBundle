@@ -1,0 +1,11 @@
+services:
+    avro_stripe.customer.manager:
+        class: Avro\StripeBundle\Manager\CustomerManager
+        arguments: ["@request", "@security.context", "@fos_user.user_manager", "@avro_stripe.plan.manager", %avro_stripe.secret_key%, %avro_stripe.prorate%]
+        scope: request
+
+    avro_stripe.plan.manager:
+        class: Avro\StripeBundle\Doctrine\PlanManager
+        arguments: ["@doctrine.odm.mongodb.document_manager", "%avro_stripe.plan.class%"]
+
+

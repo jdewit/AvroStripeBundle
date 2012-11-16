@@ -1,0 +1,42 @@
+{
+    "name": "avro/stripe-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony2 Bundle for managing user subscriptions and payments with Stripe.",
+    "keywords": ["subscription, billing, credit card, plan"],
+    "homepage": "http://github.com/jdewit/AvroStripeBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joris de Wit",
+            "email": "joris.w.dewit@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "http://github.com/jdewit/phpspec2"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "stripe/stripe-php": "1.7.*",
+        "knplabs/knp-snappy": "*"
+    },
+    "require-dev": {
+        "twig/twig": "*",
+        "doctrine/doctrine-bundle": "1.0.*",
+        "doctrine/mongodb-odm-bundle": "3.0.*",
+        "swiftmailer/swiftmailer": "*",
+        "symfony/yaml": "2.1.*",
+        "symfony/validator": "2.1.*",
+        "phpspec/phpspec2": "dev-feature/run-src-path"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-0": { "Avro\\StripeBundle": "" }
+    },
+    "target-dir": "Avro/StripeBundle"
+}

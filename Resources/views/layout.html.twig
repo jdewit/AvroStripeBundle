@@ -1,0 +1,15 @@
+{% extends '::layout.html.twig' %}
+{% block flash %}
+    {% if app.session.flashbag.peekAll|length > 0 %}
+        {% for type, flashMessages in app.session.flashbag.all() %}
+            {% for flashMessage in flashMessages %}
+                <div class="alert alert-{{ type }}" style="margin-top: .5em;">
+                    <a class="close" data-dismiss="alert" href="#">&times;</a>
+                    {{ flashMessage | trans({}, 'AvroStripeBundle') }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}{% endblock %}

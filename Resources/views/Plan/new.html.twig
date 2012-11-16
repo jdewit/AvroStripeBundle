@@ -1,0 +1,18 @@
+{% extends 'AvroStripeBundle::layout.html.twig' %}
+{% block content %}
+    <div class="page-header">
+        <h1>New Plan</h1>
+    </div>
+    <form class="form-horizontal" action="{{ path('avro_stripe_plan_new') }}" method="POST">
+        {{ form_row(form.id) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.amount) }}
+        {{ form_row(form.currency) }}
+        {{ form_row(form.interval) }}
+        {{ form_widget(form._token) }}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-large btn-primary"><i class="icon-ok icon-white"></i> Submit</button>
+        </div>
+    </form>
+{% endblock %}
+

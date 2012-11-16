@@ -1,0 +1,22 @@
+<table class="table-styled table-striped table-bordered table-rounded">
+    <thead>
+        <tr>
+            <th>Total</th>
+            <th>Paid</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for invoice in invoices %}
+            <tr>
+                <td>{{ invoice.total }}</td>
+                <td>{% if invoice.paid %}<i class="icon-ok"></i>{% else %}<i class="icon-remove"></i>{% endif %}</td>
+                <td><a href="{{ path('avro_stripe_invoice_show', {'id': invoice.id}) }}" class="btn btn-primary"><i class="icon-ok-circle icon-white"></i> View</a></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="100%">0 invoices found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

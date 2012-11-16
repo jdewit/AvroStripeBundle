@@ -1,0 +1,12 @@
+services:
+    avro_stripe_hook.listener:
+        class: Avro\StripeBundle\Listener\HookListener
+        arguments: ["@avro_stripe.mailer", "@fos_user.user_manager"]
+        tags:
+            - { name: kernel.event_listener, event: avro_stripe.hook.charge.succeeded, method: chargeSucceeded }
+            - { name: kernel.event_listener, event: avro_stripe.hook.charge.failed, method: chargeFailed }
+            - { name: kernel.event_listener, event: avro_stripe.hook.invoice.created, method: invoiceCreated }
+            - { name: kernel.event_listener, event: avro_stripe.hook.invoice.payment_succeeded, method: invoicePaymentSucceeded }
+            - { name: kernel.event_listener, event: avro_stripe.hook.charge.invoice.payment_failed, method: invoicePaymentFailed }
+            - { name: kernel.event_listener, event: avro_stripe.hook.account.application.deauthorized, method: accountApplicationDeauthorized }
+

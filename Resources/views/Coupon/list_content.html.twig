@@ -1,0 +1,22 @@
+<table class="table-styled table-striped table-bordered table-rounded">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Discount</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for coupon in coupons %}
+            <tr>
+                <td>{{ coupon.id }}</td>
+                <td>{{ coupon.percent_off }}</td>
+                <td><a href="{{ path('avro_stripe_coupon_delete', {'id': coupon.id}) }}" class="btn btn-danger"><i class="icon-remove icon-white"></i> Delete</a></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="100%">0 coupons found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,10 @@
+{% block subject %}
+{% autoescape false %}
+{{ 'invoice.payment_failed.subject'|trans({}, 'AvroStripeBundle') }}
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{{ 'invoice.payment_failed.message'|trans({'%name%': user.fullName, '%from_name%': from_name}, 'AvroStripeBundle') }}
+{% endautoescape %}
+{% endblock %}

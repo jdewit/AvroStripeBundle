@@ -1,0 +1,105 @@
+account:
+    deauthorized:
+        subject: Your Stripe account has been deauthorized
+        message: |
+            Hi %name%,
+
+            You have successfully deauthorized LeadCheckout from accessing your Stripe account.
+
+            ---
+            Regards,
+            %from_name%
+
+customer:
+    charge_succeeded:
+        subject: Payment successful
+        message: |
+            Hi %name%,
+
+            Your payment was successful.
+
+            DETAILS
+            'To:' %creditor%
+            'Date:' %date%
+            'Amount:' $%amount%
+
+            If you have any questions regarding this charge, please contact us by filing a ticket at %ticket_url%.
+
+            ---
+            Regards,
+            %from_name%
+
+    charge_failed:
+        subject: Payment failed
+        message: |
+            Hi %name%,
+
+            Your payment attempt failed.
+
+            DETAILS
+            'To:' %creditor%
+            'Date:' %date%
+            'Amount:' $%amount%
+
+            If you have any questions regarding this charge, please contact us by filing a ticket at %ticket_url%.
+
+            ---
+            Regards,
+            %from_name%
+
+invoice:
+    payment_succeeded:
+        subject: Subscription payment successful
+        message: |
+            Hi %name%,
+
+            This notice is to inform you that we have successfully charged your credit card in the amount of $%amount% for your subscription to the %plan% plan. 
+
+            You can view the invoice at %invoice_url%.
+
+            If you have any questions regarding this payment, please contact us by filing a ticket at %ticket_url%.
+
+            ---
+            Regards,
+            %from_name%
+
+    payment_failed:
+        subject: Payment failed
+        message: |
+            Hi %name%,
+
+            This notice is to inform you that we were unable to charge your credit card in the amount of $%amount% for your subscription to the %plan% plan. 
+
+            Please update your credit card information at %payment_url%.
+
+            If you have any questions regarding this payment, please contact us by filing a ticket at %ticket_url%.
+
+            ---
+            Regards,
+            %from_name%
+
+subscription:
+    updated:
+        subject: Plan updated
+        message: |
+            Hi %name%,
+
+            This notice is to inform you that you have changed your subscription to the %plan% plan. 
+
+            If you have any questions, please contact us by filing a ticket at %ticket_url%.
+
+            ---
+            Regards,
+            %from_name%
+
+plan:
+    flash:
+        created: Plan created.
+        updated: Plan updated.
+        deleted: Plan deleted.
+coupon:
+    flash:
+        created: Coupon created.
+        notCreated: Unable to create the coupon. Please try again.
+        deleted: Plan deleted.
+        notDeleted: Unable to delete the coupon. Please try again.

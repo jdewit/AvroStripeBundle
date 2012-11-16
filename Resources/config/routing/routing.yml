@@ -1,0 +1,65 @@
+avro_stripe_default_route:
+    pattern:   /
+
+avro_stripe_account_connect:
+    pattern:   /stripe/account/connect
+    defaults:  { _controller: AvroStripeBundle:Account:connect }
+
+avro_stripe_account_disconnect:
+    pattern:   /stripe/account/disconnect
+    defaults:  { _controller: AvroStripeBundle:Account:disconnect }
+
+avro_stripe_account_confirm:
+    pattern:   /stripe/confirm
+    defaults:  { _controller: AvroStripeBundle:Account:confirm }
+
+avro_stripe_hook_index:
+    pattern:   /stripe/hook
+    defaults:  { _controller: AvroStripeBundle:Hook:index }
+
+avro_stripe_customer_new:
+    pattern:   /stripe/customer/new/{planId}
+    defaults:  { _controller: AvroStripeBundle:Customer:new, planId: false }
+
+avro_stripe_customer_update:
+    pattern:   /stripe/customer/update
+    defaults:  { _controller: AvroStripeBundle:Customer:update }
+
+avro_stripe_customer_disable:
+    pattern:   /stripe/customer/disable
+    defaults:  { _controller: AvroStripeBundle:Customer:disable }
+
+avro_stripe_customer_updateSubscription:
+    pattern:   /stripe/customer/update-subscription/{planId}
+    defaults:  { _controller: AvroStripeBundle:Customer:updateSubscription }
+
+avro_stripe_invoice_list:
+    pattern:   /stripe/invoices
+    defaults:  { _controller: AvroStripeBundle:Invoice:list }
+
+avro_stripe_invoice_show:
+    pattern:   /stripe/invoice/show/{id}
+    defaults:  { _controller: AvroStripeBundle:Invoice:show }
+
+avro_stripe_plan_list:
+    pattern:   /stripe/plans/{filter}
+    defaults:  { _controller: AvroStripeBundle:Plan:list, filter: 'Active' }
+avro_stripe_plan_new:
+    pattern:   /stripe/plan/new/
+    defaults:  { _controller: AvroStripeBundle:Plan:new }
+avro_stripe_plan_edit:
+    pattern:   /stripe/plan/edit/{id}
+    defaults:  { _controller: AvroStripeBundle:Plan:edit }
+avro_stripe_plan_delete:
+    pattern:   /stripe/plan/delete/{id}
+    defaults:  { _controller: AvroStripeBundle:Plan:delete }
+
+avro_stripe_coupon_list:
+    pattern:   /stripe/coupons
+    defaults:  { _controller: AvroStripeBundle:Coupon:list }
+avro_stripe_coupon_new:
+    pattern:   /stripe/coupon/new
+    defaults:  { _controller: AvroStripeBundle:Coupon:new }
+avro_stripe_coupon_delete:
+    pattern:   /stripe/coupon/delete/{id}
+    defaults:  { _controller: AvroStripeBundle:Coupon:delete }

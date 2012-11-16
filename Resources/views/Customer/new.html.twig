@@ -1,0 +1,16 @@
+{% extends 'AvroStripeBundle::layout.html.twig' %}
+{% block head %}
+    <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+    {% include 'AvroStripeBundle:Card:js.html.twig' %}
+{% endblock %}
+{% block content %}
+    <div class="page-header">
+        <h1>Add A Credit Card</h1>
+    </div>
+    <form class="form-horizontal" action="{{ path('avro_stripe_customer_new', {'planId': planId}) }}" method="POST">
+        {% include 'AvroStripeBundle:Card:form_content.html.twig' %}
+        <div class="form-actions">
+            <button type="submit" id="submitButton" class="btn btn-primary btn-large"><i class="icon-ok icon-white"></i> Submit</button>
+        </div>
+    </form>
+{% endblock %}

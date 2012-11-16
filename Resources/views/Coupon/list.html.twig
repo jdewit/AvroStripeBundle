@@ -1,0 +1,8 @@
+{% extends 'AvroStripeBundle::layout.html.twig' %}
+{% block content %}
+    <div class="page-header">
+        <a href="{{ path('avro_stripe_coupon_new') }}" class="btn btn-large btn-primary pull-right"><i class="icon-plus icon-white"></i> New Coupon</a>
+        <h1>Coupons</h1>
+    </div>
+    {% include 'AvroStripeBundle:Coupon:list_content.html.twig' %}
+{% endblock %}
