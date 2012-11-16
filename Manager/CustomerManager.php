@@ -92,7 +92,7 @@ class CustomerManager
      */
     public function update($planId)
     {
-        $customer = \Stripe_Customer::retrieve($this->user->getStripeCustomerId());
+        $customer = $this->retrieve($this->user->getStripeCustomerId());
 
         $token = $this->getToken();
 
@@ -131,12 +131,10 @@ class CustomerManager
     {
         $stripeCustomerId = $this->user->getStripeCustomerId();
 
-        if ($stripeCustomerId) {
-            $customer = $this->retrieve($stripeCustomerId);
+        $customer = $this->retrieve($stripeCustomerId);
 
-            $customer->active_card = null;
-            $customer->save();
-        }
+        $customer->active_card = null;
+        $customer->save();
 
         $this->user->setIsStripeCustomerActive(false);
 
@@ -152,7 +150,7 @@ class CustomerManager
     {
         $stripeCustomerId = $this->user->getStripeCustomerId();
 
-        $customer = \Stripe_Customer::retrieve($stripeCustomerId);
+        $customer = $this->retrieve($stripeCustomerId);
 
         $customer->cancelSubscription();
 
