@@ -4,7 +4,7 @@ AvroStripeBundle
 A symfony2 bundle for interacting with the awesome Stripe payment service.
 
 Features:
-- Attach a credit card to a user
+- Allow users to pay and receive money
 - Subscribe a user to a plan
 - Update a users plan
 - View/print invoices & charges
@@ -14,17 +14,6 @@ Features:
 ### Status
 WIP 
 
-### Translations
-
-If you wish to use default texts provided in this bundle, you have to make
-sure you have translator enabled in your config.
-
-``` yaml
-# app/config/config.yml
-
-framework:
-    translator: ~
-```
 
 ### Step 1: Download AvroStripeBundle using composer
 
@@ -65,11 +54,9 @@ public function registerBundles()
 
 ``` php
 <?php
-// src/Acme/StripeBundle/Entity/Stripe.php
-
 namespace Application\UserBundle\Document;
 
-use FOS\UserBundle\Document\Stripe as BaseUser;
+use FOS\UserBundle\Document\User as BaseUser;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -204,9 +191,7 @@ class User extends BaseUser
 
 Create a bundle skeleton that extends this bundle 
 
-```php
-<?php
-
+``` php
 namespace Application\StripeBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -223,7 +208,7 @@ class ApplicationStripeBundle extends Bundle
 ### Step 6: Create a plan class 
 The plan class is a superclass which needs to be extended. This allows you to add custom methods such as usage limits etc...
 
-```php
+``` php
 <?php
 //Application/StripeBundle/Document/Plan
 namespace Application\StripeBundle\Document;
@@ -310,8 +295,7 @@ avro_stripe:
 
 ### Step 9: Import AvroStripeBundle routing files
 
-Now that you have activated and configured the bundle, all that is left to do is
-import the AvroStripeBundle routing files.
+Import the AvroStripeBundle routing files.
 
 In YAML:
 
@@ -320,8 +304,6 @@ In YAML:
 avro_stripe:
     resource: "@AvroStripeBundle/Resources/config/routing/routing.yml"
 ```
-**Note:**
-> In order to use the built-in email functionality, you must activate and configure the SwiftmailerBundle.
 
 ### Step 10: Update your database schema
 
@@ -339,9 +321,21 @@ The bundle receives hooks at "/stripe/hook" and dispatches the event which you c
 
 for example.
 
-the charge.succeeded event is dispatched as avro_stripe.charge.succeeded by the Hook Controller
+the 'charge.succeeded' event is dispatched as 'avro_stripe.charge.succeeded' by the HookController
 
+###Notes
 
+If you wish to use default texts provided in this bundle, you have to make
+sure you have translator enabled in your config.
+
+``` yaml
+# app/config/config.yml
+
+framework:
+    translator: ~
+```
+
+In order to use the built-in email functionality, you must activate and configure the SwiftmailerBundle.
 
 ### Next Steps
 
