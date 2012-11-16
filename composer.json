@@ -2,7 +2,7 @@
     "name": "avro/stripe-bundle",
     "type": "symfony-bundle",
     "description": "Symfony2 Bundle for managing user subscriptions and payments with Stripe.",
-    "keywords": ["subscription, billing, credit card, plan"],
+    "keywords": ["subscription", "billing", "credit card", "plan"],
     "homepage": "http://github.com/jdewit/AvroStripeBundle",
     "license": "MIT",
     "authors": [
