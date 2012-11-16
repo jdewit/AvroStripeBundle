@@ -13,7 +13,7 @@ Features:
 
 ### Status
 WIP 
-[![Build Status](https://travis-ci.org/jdewit/AvroStripeBundle.png)](https://travis-ci.org/jdewit/AvroStripeBundle)
+[![Build Status](https://travis-ci.org/jdewit/AvroStripeBundle.png?branch=master)](https://travis-ci.org/jdewit/AvroStripeBundle)
 
 ### Step 1: Download AvroStripeBundle using composer
 
