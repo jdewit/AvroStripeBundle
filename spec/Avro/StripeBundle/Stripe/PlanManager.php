@@ -20,6 +20,5 @@ class PlanManager extends ObjectBehavior
 
     function it_should_retrieve_plan()
     {
-        $this->retrieve(1)->shouldReturn('array');
     }
 }
