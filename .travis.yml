@@ -4,7 +4,9 @@ php:
   - 5.3
   - 5.4
 
-before_script: composer install --dev
+before_script: 
+    - wget http://getcomposer.org/composer.phar
+    - composer install --dev
 
 notifications:
   email: joris.w.dewit@gmail.com
