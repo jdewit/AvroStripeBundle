@@ -1,4 +1,4 @@
-AvroStripeBundle
+AvroStripeBundle [![Build Status](https://travis-ci.org/jdewit/AvroStripeBundle.png?branch=master)](https://travis-ci.org/jdewit/AvroStripeBundle)
 ================
 
 A symfony2 bundle for interacting with the awesome Stripe payment service.
@@ -13,7 +13,6 @@ Features:
 
 ### Status
 WIP 
-[![Build Status](https://travis-ci.org/jdewit/AvroStripeBundle.png?branch=master)](https://travis-ci.org/jdewit/AvroStripeBundle)
 
 ### Step 1: Download AvroStripeBundle using composer
 
@@ -186,6 +185,7 @@ class User extends BaseUser
         );
     }
 }
+```
 
 ### Step 5: Extend the bundle
 
