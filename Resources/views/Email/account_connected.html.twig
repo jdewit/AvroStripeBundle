@@ -1,0 +1,10 @@
+{% block subject %}
+{% autoescape false %}
+{{ 'account.connected.subject'|trans({}, 'AvroStripeBundle') }}
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{{ 'account.connected.message'|trans({'%name%': user.fullName, '%from_name%': from_name}, 'AvroStripeBundle') }}
+{% endautoescape %}
+{% endblock %}

@@ -1,4 +1,15 @@
 account:
+    connected:
+        subject: Your Stripe account has been connected
+        message: |
+            Hi %name%,
+
+            You have successfully authorized LeadCheckout to collect payments to your Stripe account.
+
+            ---
+            Regards,
+            %from_name%
+
     deauthorized:
         subject: Your Stripe account has been deauthorized
         message: |

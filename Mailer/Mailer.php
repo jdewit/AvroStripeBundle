@@ -81,6 +81,16 @@ class Mailer implements MailerInterface
         $this->sendEmail($rendered, $this->parameters['from_email'], $user->getEmail());
     }
 
+
+    public function sendAccountConnectedEmail(UserInterface $user)
+    {
+        $rendered = $this->templating->render('AvroStripeBundle:Email:account_connected.html.twig', array(
+            'user' => $user,
+            'from_name' => $this->parameters['from_name']
+        ));
+        $this->sendEmail($rendered, $this->parameters['from_email'], $user->getEmail());
+    }
+
     public function sendAccountApplicationDeauthorizedEmail(UserInterface $user)
     {
         $rendered = $this->templating->render('AvroStripeBundle:Email/account_application_deauthorized.html.twig', array(

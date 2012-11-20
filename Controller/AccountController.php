@@ -90,6 +90,8 @@ class AccountController extends ContainerAware
 
             $userManager->updateUser($user);
 
+            $this->get('avro_stripe.mailer')->sendAccountConnectedEmail($user);
+
             $this->container->get('session')->getFlashBag()->set('success', 'Stripe account synced!');
         } else {
             $this->container->get('session')->getFlashBag()->set('error', 'Unable to sync stripe account. Please try again.');
