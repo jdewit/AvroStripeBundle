@@ -57,7 +57,32 @@ class InvoiceController extends ContainerAware
             throw new NotFoundHttpException('User not found');
         }
 
-        $html = $this->container->get('templating')->render('AvroStripeBundle:Invoice:show.html.twig', array(
+        return $this->container->get('templating')->renderResponse('AvroStripeBundle:Invoice:show.html.twig', array(
+            'invoice' => $invoice,
+            'user' => $user
+        ));
+    }
+
+    /**
+     * Print an invoice
+     */
+    public function printAction($id)
+    {
+        \Stripe::setApiKey($this->container->getParameter('avro_stripe.secret_key'));
+
+        $invoice = \Stripe_Invoice::retrieve($id);
+
+        if (!$invoice) {
+            throw new NotFoundHttpException('Invoice not found');
+        }
+
+        $user = $this->container->get('fos_user.user_manager')->findUserBy(array('stripeCustomerId' => $invoice->customer));
+
+        if (!$user) {
+            throw new NotFoundHttpException('User not found');
+        }
+
+        $html = $this->container->get('templating')->render('AvroStripeBundle:Invoice:print.html.twig', array(
             'invoice' => $invoice,
             'user' => $user
         ));
@@ -71,4 +96,5 @@ class InvoiceController extends ContainerAware
             )
         );
     }
+
 }

@@ -36,10 +36,12 @@ avro_stripe_customer_updateSubscription:
 avro_stripe_invoice_list:
     pattern:   /stripe/invoices
     defaults:  { _controller: AvroStripeBundle:Invoice:list }
-
 avro_stripe_invoice_show:
     pattern:   /stripe/invoice/show/{id}
     defaults:  { _controller: AvroStripeBundle:Invoice:show }
+avro_stripe_invoice_print:
+    pattern:   /stripe/invoice/print/{id}
+    defaults:  { _controller: AvroStripeBundle:Invoice:print }
 
 avro_stripe_plan_list:
     pattern:   /stripe/plans/{filter}
