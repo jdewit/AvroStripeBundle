@@ -8,6 +8,7 @@
 namespace Avro\StripeBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -22,7 +23,7 @@ class InvoiceController extends ContainerAware
     /**
      * List invoices
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
 
@@ -30,31 +31,10 @@ class InvoiceController extends ContainerAware
 
         $invoices = \Stripe_Invoice::all(array('customer' => $user->getStripeCustomerId()))->data;
 
-        //$paginator = $this->get('avro_paginator.paginator');
-        //$paginator->setClass('ApplicationCoreBundle:Transaction');
-
-        //$filters = array(
-            //'invoices' => array(
-                //'field' => 'debtor.id',
-                //'value' => $user->getId(),
-                //'label' => 'Invoices',
-                //'icon' => 'sprite-money'
-            //),
-            //'payments' => array(
-                //'field' => 'creditor.id',
-                //'value' => $user->getId(),
-                //'label' => 'Payments',
-                //'icon' => 'sprite-expense'
-            //)
-        //);
-
-        //$paginator->addFilters($filters);
-        //$paginator->setDefaultFilter('invoices');
-
-        //$transactions = $paginator->getResults();
+        $paginator = $this->container->get('knp_paginator')->paginate($invoices, $request->query->get('page', 1), 10);
 
         return $this->container->get('templating')->renderResponse('AvroStripeBundle:Invoice:list.html.twig', array(
-            'invoices' => $invoices,
+            'paginator' => $paginator,
         ));
     }
 
@@ -71,15 +51,23 @@ class InvoiceController extends ContainerAware
             throw new NotFoundHttpException('Invoice not found');
         }
 
+        $user = $this->container->get('fos_user.user_manager')->findUserBy(array('stripeCustomerId' => $invoice->customer));
+
+        if (!$user) {
+            throw new NotFoundHttpException('User not found');
+        }
+
         $html = $this->container->get('templating')->render('AvroStripeBundle:Invoice:show.html.twig', array(
             'invoice' => $invoice,
+            'user' => $user
         ));
+
         return new Response(
             $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
             array(
                 'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="invoice_'.$invoice->id.'.pdf"'
+                'Content-Disposition'   => 'attachment; filename="'.$invoice->id.'.pdf"'
             )
         );
     }

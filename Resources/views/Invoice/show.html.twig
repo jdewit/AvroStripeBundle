@@ -1,70 +1,94 @@
-{% extends '::print.html.twig' %}
-{% block content %}
-    <div class="row-fluid">
-        <div class="span6">
-            <img src="{{ asset('bundles/corebundle/images/lead_checkout_logo_usp.png') }}">
-            <p>LeadCheckout.com <br>
-                101-2230 Wall St.<br>
-                Vancouver, BC, V5L 1B6<br>
-                1-778-997-7529<br>
-                <small>GST Number: R840215727</small><br>
-            </p>
+<!DOCTYPE html>
+<html style="height: 100%;">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="{{ asset('css/compiled/app.css') }}" type="text/css" media="screen" />
+        <style type="text/css">
+            body {
+                font-size: 12px;
+            }
+            {% block customCSS %}{% endblock %}
+        </style>
+        {% block head %}{% endblock %}
+        <title>{% block title %}LeadCheckout - Exchange leads with others{% endblock %}</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span6">
+                    <img src="" alt="Your logo" />
+                </div>
+                <div class="span6 right-align">
+                    <h3>Invoice</h3>
+                    <table class="pull-right">
+                        <tbody>
+                            <tr>
+                                <td><b>Number:</b></td>
+                                <td>{{ invoice.id }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Date:</b></td>
+                                <td>{{ invoice.date | date('M jS, Y') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <h3>New Charges - {{ invoice.period_start | date('M jS, Y') }} to {{ invoice.period_end | date('M jS, Y') }}</h3>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <table class="styled table-striped table-bordered table-rounded">
+                        <thead>
+                            <tr>
+                                <th>Qty</th>
+                                <th>Item</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if invoice.lines.subscriptions is defined %}
+                                {% for subscription in invoice.lines.subscriptions %}
+                                    <tr>
+                                        <td>{{ subscription.quantity }}</td>
+                                        <td style="width: 80%;">{{ subscription.plan.name }} (${{ subscription.plan.amount / 100 }}/{{ subscription.plan.interval }})</td>
+                                        <td>${{ (subscription.amount / 100) | number_format(2, '.', ',') }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                            {% if invoice.lines.invoiceItems is defined %}
+                                {% for line in invoice.lines.invoiceItems %}
+                                    <tr>
+                                        <td>{{ line.quantity }}<td>
+                                        <td style="width: 80%;">{{ line.description }}</td>
+                                        <td><b>${{ (line.amount / 100) | number_format(2, '.', ',') }}</b></td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="right-align" colspan="2">SubTotal</td>
+                                <td class="center-align">${{ (invoice.subtotal / 100) | number_format(2, '.', ',') }}</td>
+                            </tr>
+                            {% if invoice.discount is defined %}
+                                <tr>
+                                    <td class="right-align" colspan="2">Discount</td>
+                                    <td class="center-align">${{ (invoice.discount / 100) | number_format(2, '.', ',') }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td class="right-align" colspan="2"><b>TOTAL</b></td>
+                                <td class="center-align"><b>${{ (invoice.total / 100) | number_format(2, '.', ',') }}</b></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="span6">
-            <h3>Invoice</h3>
-            <table>
-                <tr>
-                    <td>Number:</td>
-                    <td>{{ invoice.id }}</td>
-                </tr>
-                <tr>
-                    <td>Customer:</td>
-                    <td>{{ app.user.fullName }}</td>
-                </tr>
-                <tr>
-                    <td>Date:</td>
-                    <td>{{ invoice.date | date('Y-m-d') }}</td>
-                </tr>
-                <tr>
-                    <td>Payment Due:</td>
-                    <td>{{ invoice.period_end }}</td>
-                </tr>
-        </div>
-    </div>
+    </body>
+</html>
 
-    <p>All amounts in Canadian Dollars.</p>
-    <h1>Summary of Your Charges</h1>
-    <div class="page-header">
-        <h3>New Charges - Oct 1, 2012 to Oct 31, 2012</h3>
-    </div>
-    <div class="row-fluid">
-        <div class="span12">
-            <table class="styled table-striped">
-                {% for line in invoice.lines %}
-                    {% set line = line.data %}
-                    {% if line.type == 'subscription' %}
-                        <tr>
-                            <td style="width: 80%;">({{ line.count }}) {{ line.plan.name }}</td>
-                            <td><b>${{ line.amount }}</b></td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-            </table>
-        </div>
-    </div>
-    <div class="page-header">
-        <h3>Total</h3>
-    </div>
-    <div class="row-fluid">
-        <div class="span12">
-            <table class="styled">
-                <tr>
-                    <td style="width: 80%;">&nbsp;</td>
-                    <td>{{ invoice.total }}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <hr>
-    <p>Please do not send payment. This amount will be automatically deducted from your credit card.</p>
-{% endblock %}
