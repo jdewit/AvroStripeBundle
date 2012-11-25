@@ -110,6 +110,8 @@ class CustomerController extends ContainerAware
             }
         } else {
             if ($user->getIsStripeCustomerActive()) {
+                $this->container->get('session')->getFlashBag()->set('success', 'Plan updated.');
+
                 $customerManager->update($planId);
             } else {
                 return $this->container->get('templating')->renderResponse('AvroStripeBundle:Customer:updateSubscription.html.twig', array(
