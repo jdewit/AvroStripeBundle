@@ -41,7 +41,7 @@ class Mailer implements MailerInterface
         $this->sendEmail($rendered, $this->parameters['from_email'], $user->getEmail());
     }
 
-    public function sendnaChargeSucceededEmail(UserInterface $user, $data)
+    public function sendChargeSucceededEmail(UserInterface $user, $data)
     {
         $rendered = $this->templating->render('AvroStripeBundle:Email/charge_succeeded.html.twig', array(
             'user' => $user,
