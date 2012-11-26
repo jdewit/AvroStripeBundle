@@ -1,7 +1,15 @@
 {% extends 'AvroStripeBundle::layout.html.twig' %}
 {% block content %}
     <div class="page-header">
-        <a href="{{ path('avro_stripe_plan_new') }}" class="btn btn-large btn-primary pull-right"><i class="icon-plus icon-white"></i> New Plan</a>
+        <div class="btn-group pull-right">
+            <a href="{{ path('avro_stripe_plan_new') }}" class="btn btn-large btn-primary"><i class="icon-plus icon-white"></i> New Plan</a>
+            <button id="planDropdown" class="btn btn-primary btn-large dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('avro_stripe_plan_new') }}"><i class="icon-plus"></i> New</a></li>
+                <li><a href="{{ path('avro_stripe_plan_sync') }}"><i class="icon-refresh"></i> Sync</a></li>
+            </ul>
+        </div>
+
         <h1>Plans
            <span class="btn-group">
                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">{{ filter }} <span class="caret"></span></a>

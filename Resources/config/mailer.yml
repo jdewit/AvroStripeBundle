@@ -1,4 +1,4 @@
 services: 
     avro_stripe.mailer:
         class: Avro\StripeBundle\Mailer\Mailer
-        arguments: ['@mailer', '@security.context', '@router', '@templating', {'from_email': '%mailer_user%'}]
+        arguments: ['@mailer', '@security.context', '@router', '@templating', {'from_email': '%mailer_user%', 'email_signature': %avro_stripe.email_signature%}]

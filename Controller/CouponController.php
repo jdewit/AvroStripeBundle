@@ -57,9 +57,9 @@ class CouponController extends ContainerAware
                         'max_redemptions' => $data['maxRedemptions'],
                     ));
 
-                    $this->container->get('session')->setFlash('success', 'coupon.flash.created');
+                    $this->container->get('session')->setFlash('success', 'coupon.created.flash');
                 } catch(\Exception $e) {
-                    $this->container->get('session')->setFlash('success', 'coupon.flash.notCreated');
+                    $this->container->get('session')->setFlash('success', 'coupon.notCreated.flash');
                 }
 
                 return new RedirectResponse($this->container->get('router')->generate('avro_stripe_coupon_list'));
@@ -82,9 +82,9 @@ class CouponController extends ContainerAware
             $coupon = \Stripe_Coupon::retrieve($id);
             $coupon->delete();
 
-            $this->container->get('session')->setFlash('success', 'coupon.flash.deleted');
+            $this->container->get('session')->setFlash('success', 'coupon.deleted.flash');
         } catch(\Exception $e) {
-            $this->container->get('session')->setFlash('error', 'coupon.flash.notDeleted');
+            $this->container->get('session')->setFlash('error', 'coupon.notDeleted.flash');
         }
 
         return new RedirectResponse($this->container->get('router')->generate('avro_stripe_coupon_list'));

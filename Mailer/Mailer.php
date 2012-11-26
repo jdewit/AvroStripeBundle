@@ -31,12 +31,12 @@ class Mailer implements MailerInterface
         $this->parameters = $parameters;
     }
 
-    public function sendPlanUpdatedEmail(UserInterface $user)
+    public function sendSubscriptionUpdatedEmail(UserInterface $user)
     {
         // send message to user
-        $rendered = $this->templating->render('AvroStripeBundle:Email/plan_updated.html.twig', array(
+        $rendered = $this->templating->render('AvroStripeBundle:Email/subscription_updated.html.twig', array(
             'user' => $user,
-            'from_name' => $this->parameters['from_name']
+            'email_signature' => $this->parameters['email_signature']
         ));
         $this->sendEmail($rendered, $this->parameters['from_email'], $user->getEmail());
     }
@@ -46,7 +46,7 @@ class Mailer implements MailerInterface
         $rendered = $this->templating->render('AvroStripeBundle:Email/charge_succeeded.html.twig', array(
             'user' => $user,
             'data' => $data,
-            'from_name' => $this->parameters['from_name']
+            'email_signature' => $this->parameters['email_signature']
         ));
         $this->sendEmail($rendered, $this->parameters['from_email'], $user->getEmail());
     }
@@ -56,7 +56,7 @@ class Mailer implements MailerInterface
         $rendered = $this->templating->render('AvroStripeBundle:Email/charge_failed.html.twig', array(
             'user' => $user,
             'data' => $data,
-            'from_name' => $this->parameters['from_name']
+            'email_signature' => $this->parameters['email_signature']
         ));
         $this->sendEmail($rendered, $this->parameters['from_email'], $user->getEmail());
     }
@@ -66,7 +66,7 @@ class Mailer implements MailerInterface
         $rendered = $this->templating->render('AvroStripeBundle:Email/invoice_payment_succeeded.html.twig', array(
             'user' => $user,
             'data' => $data,
-            'from_name' => $this->parameters['from_name']
+            'email_signature' => $this->parameters['email_signature']
         ));
         $this->sendEmail($rendered, $this->parameters['from_email'], $user->getEmail());
     }
@@ -76,7 +76,7 @@ class Mailer implements MailerInterface
         $rendered = $this->templating->render('AvroStripeBundle:Email/invoice_payment_failed.html.twig', array(
             'user' => $user,
             'data' => $data,
-            'from_name' => $this->parameters['from_name']
+            'email_signature' => $this->parameters['email_signature']
         ));
         $this->sendEmail($rendered, $this->parameters['from_email'], $user->getEmail());
     }
@@ -86,7 +86,7 @@ class Mailer implements MailerInterface
     {
         $rendered = $this->templating->render('AvroStripeBundle:Email:account_connected.html.twig', array(
             'user' => $user,
-            'from_name' => $this->parameters['from_name']
+            'email_signature' => $this->parameters['email_signature']
         ));
         $this->sendEmail($rendered, $this->parameters['from_email'], $user->getEmail());
     }
@@ -95,7 +95,7 @@ class Mailer implements MailerInterface
     {
         $rendered = $this->templating->render('AvroStripeBundle:Email/account_application_deauthorized.html.twig', array(
             'user' => $user,
-            'from_name' => $this->parameters['from_name']
+            'email_signature' => $this->parameters['email_signature']
         ));
         $this->sendEmail($rendered, $this->parameters['from_email'], $user->getEmail());
     }

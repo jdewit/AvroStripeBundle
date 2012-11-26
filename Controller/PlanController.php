@@ -49,7 +49,7 @@ class PlanController extends ContainerAware
 
         try {
             if ($formHandler->process()) {
-                $this->container->get('session')->setFlash('success', 'plan.flash.created');
+                $this->container->get('session')->setFlash('success', 'plan.created.flash');
 
                 return new RedirectResponse($this->container->get('router')->generate('avro_stripe_plan_list'));
             }
@@ -73,7 +73,7 @@ class PlanController extends ContainerAware
         $formHandler = $this->container->get('avro_stripe.form.handler');
 
         if ($formHandler->process($plan)) {
-            $this->container->get('session')->setFlash('success', 'plan.flash.updated');
+            $this->container->get('session')->setFlash('success', 'plan.updated.flash');
 
             return new RedirectResponse($this->container->get('router')->generate('avro_stripe_plan_list'));
         }
@@ -100,10 +100,40 @@ class PlanController extends ContainerAware
         //delete on stripe
         $stripePlanManager->delete($plan);
 
-        $this->container->get('session')->setFlash('success', 'plan.flash.deleted');
+        $this->container->get('session')->setFlash('success', 'plan.deleted.flash');
 
         return new RedirectResponse($this->container->get('router')->generate('avro_stripe_plan_list'));
     }
 
+    /**
+     * Sync plans with Stripe
+     */
+    public function syncAction()
+    {
+        \Stripe::setApiKey($this->container->getParameter('avro_stripe.secret_key'));
+
+        $planManager = $this->container->get('avro_stripe.plan.manager');
+
+        $plans = $planManager->findAll();
+        foreach($plans as $plan) {
+            $planManager->remove($plan);
+        }
+
+        $plans = \Stripe_Plan::all()->data;
+        foreach($plans as $plan) {
+            $p = $planManager->create();
+            $p->setId($plan->id);
+            $p->setName($plan->name);
+            $p->setInterval($plan->interval);
+            $p->setAmount($plan->amount);
+            $p->setCurrency($plan->currency);
+
+            $planManager->update($p);
+        }
+
+        $this->container->get('session')->setFlash('success', 'plan.synced.flash');
+
+        return new RedirectResponse($this->container->get('router')->generate('avro_stripe_plan_list'));
+    }
 
 }

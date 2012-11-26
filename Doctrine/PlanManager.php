@@ -41,6 +41,18 @@ class PlanManager extends BasePlanManager
         return true;
     }
 
+    public function remove(PlanInterface $plan, $andFlush = true)
+    {
+        $this->om->remove($plan);
+
+        if ($andFlush) {
+            $this->om->flush();
+        }
+
+        return true;
+    }
+
+
     public function find($id)
     {
         return $this->repository->find($id);

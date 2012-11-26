@@ -16,9 +16,8 @@
                 <td>
                     {% if plan.isActive %}
                     <div class="btn-group">
-
-                        <a href="{{ path('avro_stripe_plan_edit', {'id': plan.id}) }}" class="btn btn-primary"><i class="icon-pencil icon-white"></i> Edit</a>>
-                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                        <a href="{{ path('avro_stripe_plan_edit', {'id': plan.id}) }}" class="btn"><i class="icon-pencil"></i> Edit</a>>
+                        <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
                         <ul class="dropdown-menu">
                             <li><a href="{{ path('avro_stripe_plan_edit', {'id': plan.id}) }}"><i class="icon-pencil"></i> Edit</a></li>
                             <li><a id="deletePlan" href="{{ path('avro_stripe_plan_delete', {'id': plan.id}) }}"><i class="icon-remove"></i> Delete</a></li>

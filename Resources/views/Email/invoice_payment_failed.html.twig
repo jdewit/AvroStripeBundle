@@ -1,10 +1,13 @@
 {% block subject %}
 {% autoescape false %}
-{{ 'invoice.payment_failed.subject'|trans({}, 'AvroStripeBundle') }}
+{{ 'invoice.payment_failed.email.subject'|trans({}, 'AvroStripeBundle') }}
 {% endautoescape %}
 {% endblock %}
 {% block body_text %}
 {% autoescape false %}
-{{ 'invoice.payment_failed.message'|trans({'%name%': user.fullName, '%from_name%': from_name}, 'AvroStripeBundle') }}
+{{ 'invoice.payment_failed.email.message'|trans({
+    '%name%': user.fullName,
+    '%email_signature%': email_signature
+}, 'AvroStripeBundle') }}
 {% endautoescape %}
 {% endblock %}

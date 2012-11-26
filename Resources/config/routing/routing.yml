@@ -55,6 +55,9 @@ avro_stripe_plan_edit:
 avro_stripe_plan_delete:
     pattern:   /stripe/plan/delete/{id}
     defaults:  { _controller: AvroStripeBundle:Plan:delete }
+avro_stripe_plan_sync:
+    pattern:   /stripe/plan/sync
+    defaults:  { _controller: AvroStripeBundle:Plan:sync }
 
 avro_stripe_coupon_list:
     pattern:   /stripe/coupons

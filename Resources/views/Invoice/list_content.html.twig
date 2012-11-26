@@ -13,7 +13,7 @@
                 <td>{{ invoice.date | date('M jS, Y') }}</td>
                 <td>${{ (invoice.total / 100) | number_format(2, '.', ',') }}</td>
                 <td>{% if invoice.paid %}<i class="icon-ok"></i>{% else %}<i class="icon-remove"></i>{% endif %}</td>
-                <td><a href="{{ path('avro_stripe_invoice_show', {'id': invoice.id}) }}" class="btn btn-primary"><i class="icon-share-alt icon-white"></i> View</a></td>
+                <td><a href="{{ path('avro_stripe_invoice_show', {'id': invoice.id}) }}" class="btn"><i class="icon-share-alt icon-white"></i> View</a></td>
             </tr>
         {% else %}
             <tr>

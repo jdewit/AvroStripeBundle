@@ -1,10 +1,13 @@
 {% block subject %}
 {% autoescape false %}
-{{ 'account.deauthorized.subject'|trans({}, 'AvroStripeBundle') }}
+{{ 'account.deauthorized.email.subject'|trans({}, 'AvroStripeBundle') }}
 {% endautoescape %}
 {% endblock %}
 {% block body_text %}
 {% autoescape false %}
-{{ 'account.deauthorized.message'|trans({'%name%': user.fullName, '%from_name%': from_name}, 'AvroStripeBundle') }}
+{{ 'account.deauthorized.email.message'|trans({
+    '%name%': user.fullName,
+    '%email_signature%': email_signature
+}, 'AvroStripeBundle') }}
 {% endautoescape %}
 {% endblock %}

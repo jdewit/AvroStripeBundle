@@ -90,7 +90,7 @@ class AccountController extends ContainerAware
 
             $userManager->updateUser($user);
 
-            $this->get('avro_stripe.mailer')->sendAccountConnectedEmail($user);
+            $this->container->get('avro_stripe.mailer')->sendAccountConnectedEmail($user);
 
             $this->container->get('session')->getFlashBag()->set('success', 'Stripe account synced!');
         } else {

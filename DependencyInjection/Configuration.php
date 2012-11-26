@@ -29,6 +29,7 @@ class Configuration
                 ->scalarNode('secret_key')->cannotBeEmpty()->isRequired()->end()
                 ->scalarNode('publishable_key')->cannotBeEmpty()->isRequired()->end()
                 ->scalarNode('client_id')->cannotBeEmpty()->isRequired()->end()
+                ->scalarNode('email_signature')->isRequired()->cannotBeEmpty()->end()
                 ->booleanNode('prorate')->defaultFalse()->cannotBeEmpty()->end()
                 ->booleanNode('hooks_enabled')->defaultFalse()->cannotBeEmpty()->end()
                 ->arrayNode('plan')

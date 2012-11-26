@@ -1,10 +1,13 @@
 {% block subject %}
 {% autoescape false %}
-{{ 'account.connected.subject'|trans({}, 'AvroStripeBundle') }}
+{{ 'account.connected.email.subject'|trans({}, 'AvroStripeBundle') }}
 {% endautoescape %}
 {% endblock %}
 {% block body_text %}
 {% autoescape false %}
-{{ 'account.connected.message'|trans({'%name%': user.fullName, '%from_name%': from_name}, 'AvroStripeBundle') }}
+{{ 'account.connected.email.message'|trans({
+    '%name%': user.fullName,
+    '%email_signature%': email_signature
+}, 'AvroStripeBundle') }}
 {% endautoescape %}
 {% endblock %}

@@ -34,9 +34,9 @@ class AvroStripeExtension extends Extension
         }
 
         $loader->load('plan.yml');
+        $loader->load('mailer.yml');
 
         if ($config['hooks_enabled']) {
-            $loader->load('mailer.yml');
             $loader->load('hook.yml');
         }
 
@@ -46,6 +46,7 @@ class AvroStripeExtension extends Extension
         $container->setParameter('avro_stripe.publishable_key', $config['publishable_key']);
         $container->setParameter('avro_stripe.client_id', $config['client_id']);
         $container->setParameter('avro_stripe.prorate', $config['prorate']);
+        $container->setParameter('avro_stripe.email_signature', $config['email_signature']);
 
         $container->setParameter('avro_stripe.redirect_routes.customer_new', $config['redirect_routes']['customer_new']);
         $container->setParameter('avro_stripe.redirect_routes.customer_update', $config['redirect_routes']['customer_update']);

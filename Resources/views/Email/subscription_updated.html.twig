@@ -1,11 +1,11 @@
 {% block subject %}
 {% autoescape false %}
-{{ 'customer.charge_succeeded.email.subject'|trans({}, 'AvroStripeBundle') }}
+{{ 'subscription.updated.email.subject'|trans({}, 'AvroStripeBundle') }}
 {% endautoescape %}
 {% endblock %}
 {% block body_text %}
 {% autoescape false %}
-{{ 'customer.charge_succeeded.email.message'|trans({
+{{ 'subscription.updated.email.message'|trans({
     '%name%': user.fullName,
     '%email_signature%': email_signature
 }, 'AvroStripeBundle') }}
