@@ -30,7 +30,7 @@ class HookController extends ContainerAware
         $event = $content['type'];
         $data = $content['data']['object'];
 
-        $dispatcher = $this->container->get('dispatcher');
+        $dispatcher = $this->container->get('event_dispatcher');
         $dispatcher->dispatch(sprintf('avro_stripe.hook.%s', $event), new HookEvent($data));
 
         return new Response('ok', 200, array('Content-Type'=>'text/html'));
