@@ -33,20 +33,15 @@ class AvroStripeExtension extends Extension
             break;
         }
 
-		if ($config['enabled']) {
-			$loader->load('plan.yml');
+		$loader->load('plan.yml');
+
+		if ($config['hooks_enabled']) {
 			$loader->load('mailer.yml');
-
-			if ($config['hooks_enabled']) {
-				$loader->load('hook.yml');
-			}
-
-   			\Stripe::setApiKey($config['secret_key']);
+			$loader->load('hook.yml');
 		}
 
-        $container->setParameter('avro_stripe.secret_key', $config['secret_key']);
-        $container->setParameter('avro_stripe.publishable_key', $config['publishable_key']);
-        $container->setParameter('avro_stripe.client_id', $config['client_id']);
+//   			\Stripe::setApiKey($container->getParameter('secret_key');
+
         $container->setParameter('avro_stripe.prorate', $config['prorate']);
         //$container->setParameter('avro_stripe.email_signature', $config['email_signature']);
 

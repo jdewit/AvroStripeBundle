@@ -25,11 +25,7 @@ class Configuration
         $treeBuilder = new TreeBuilder();
         $treeBuilder->root('avro_stripe', 'array')
             ->children()
-                ->scalarNode('enabled')->defaultValue(true)->end()
                 ->scalarNode('db_driver')->defaultValue('mongodb')->cannotBeEmpty()->end()
-                ->scalarNode('secret_key')->isRequired()->end()
-                ->scalarNode('publishable_key')->isRequired()->end()
-                ->scalarNode('client_id')->isRequired()->end()
                 //->scalarNode('email_signature')->isRequired()->end()
                 ->booleanNode('prorate')->defaultFalse()->end()
                 ->booleanNode('hooks_enabled')->defaultFalse()->end()
