@@ -7,7 +7,7 @@ http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
     <mapped-superclass name="Avro\StripeBundle\Document\Plan" collection="avro_stripe_plan">
 
         <field name="name" fieldName="name" type="string" />
-        <field name="amount" fieldName="amount" type="money" />
+        <field name="amount" fieldName="amount" type="string" />
         <field name="currency" fieldName="currency" type="string" />
         <field name="interval" fieldName="interval" type="string" />
         <field name="isActive" fieldName="isActive" type="boolean" />
