@@ -7,7 +7,7 @@
 
 namespace Avro\StripeBundle\Tests\Fixtures\Document;
 
-use Avro\StripeBundle\Document\Plan as BasePlan;
+use Avro\StripeBundle\Model\Plan as BasePlan;
 
 class Plan extends BasePlan
 {

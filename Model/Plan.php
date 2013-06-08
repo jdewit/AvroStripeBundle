@@ -15,6 +15,18 @@ abstract class Plan implements PlanInterface
     protected $interval;
     protected $isActive = true;
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getName()
     {
         return $this->name;

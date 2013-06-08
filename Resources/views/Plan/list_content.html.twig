@@ -12,17 +12,10 @@
             <tr>
                 <td>{{ plan.id }}</td>
                 <td>{{ plan.name }}</td>
-                <td>{{ plan.amount }}</td>
+                <td>${{ plan.amount }}</td>
                 <td>
                     {% if plan.isActive %}
-                    <div class="btn-group">
-                        <a href="{{ path('avro_stripe_plan_edit', {'id': plan.id}) }}" class="btn"><i class="icon-pencil"></i> Edit</a>>
-                        <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('avro_stripe_plan_edit', {'id': plan.id}) }}"><i class="icon-pencil"></i> Edit</a></li>
-                            <li><a id="deletePlan" href="{{ path('avro_stripe_plan_delete', {'id': plan.id}) }}"><i class="icon-remove"></i> Delete</a></li>
-                        </ul>
-                    </div>
+                            <a title="Disable Plan" class="btn btn-danger btn-small" href="{{ path('avro_stripe_plan_disable', {'id': plan.id}) }}"><i class="icon-remove"></i> Disable</a>
                     {% endif %}
                 </td>
             </tr>

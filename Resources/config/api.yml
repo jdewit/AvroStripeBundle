@@ -1,0 +1,11 @@
+services:
+    avro_stripe.customer.api_helper:
+        class: Avro\StripeBundle\Api\CustomerApiHelper
+        arguments: ["@request", "@security.context", "@fos_user.user_manager", "@avro_stripe.plan.manager", %avro_stripe.secret_key%, %avro_stripe.prorate%]
+        scope: request
+
+    avro_stripe.plan.api_helper:
+        class: Avro\StripeBundle\Api\PlanApiHelper
+        arguments: [%avro_stripe.secret_key%]
+
+

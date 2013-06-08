@@ -2,46 +2,62 @@
 
 namespace Avro\StripeBundle\Doctrine;
 
+use Avro\StripeBundle\Event\PlanEvent;
 use Avro\StripeBundle\Model\PlanInterface;
-use Avro\StripeBundle\Model\PlanManager as BasePlanManager;
 
-class PlanManager extends BasePlanManager
+class PlanManager implements PlanManagerInterface
 {
     protected $om;
+    protected $dispatcher;
     protected $class;
     protected $repository;
 
-    public function __construct($om, $class)
+    public function __construct($om, $dispatcher, $class)
     {
         $this->om = $om;
+        $this->dispatcher = $dispatcher;
+        $this->class = $class;
         $this->repository = $om->getRepository($class);
-
-        parent::__construct($class);
-
     }
 
-    public function update(PlanInterface $plan, $andFlush = true)
+    public function create()
     {
+        $plan = new $this->class();
+
+       	$this->dispatcher->dispatch('avro_stripe.plan.create', new PlanEvent($plan));
+
+        return $plan;
+    }
+
+    public function persist(PlanInterface $plan, $andFlush = true)
+    {
+       	$this->dispatcher->dispatch('avro_stripe.plan.persist', new PlanEvent($plan));
         $this->om->persist($plan);
 
         if ($andFlush) {
             $this->om->flush();
         }
 
-        return true;
+       	$this->dispatcher->dispatch('avro_stripe.plan.persisted', new PlanEvent($plan));
+
+        return $plan;
     }
 
-    public function delete(PlanInterface $plan)
+    public function update(PlanInterface $plan, $andFlush = true)
     {
-        $plan->setIsActive(false);
-
+       	$this->dispatcher->dispatch('avro_stripe.plan.update', new PlanEvent($plan));
         $this->om->persist($plan);
-        $this->om->flush();
 
-        return true;
+        if ($andFlush) {
+            $this->om->flush();
+        }
+
+       	$this->dispatcher->dispatch('avro_stripe.plan.updated', new PlanEvent($plan));
+
+        return $plan;
     }
 
-    public function remove(PlanInterface $plan, $andFlush = true)
+    public function delete(PlanInterface $plan, $andFlush = true)
     {
         $this->om->remove($plan);
 
@@ -51,7 +67,6 @@ class PlanManager extends BasePlanManager
 
         return true;
     }
-
 
     public function find($id)
     {
@@ -66,16 +81,6 @@ class PlanManager extends BasePlanManager
     public function findBy(array $criteria)
     {
         return $this->repository->findBy($criteria);
-    }
-
-    public function findActive()
-    {
-        return $this->repository->findBy(array('isActive' => true));
-    }
-
-    public function findDeleted()
-    {
-        return $this->repository->findBy(array('isActive' => false));
     }
 
     public function findAll()

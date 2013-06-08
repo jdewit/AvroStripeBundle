@@ -89,7 +89,7 @@ class User extends BaseUser
     protected $stripePublishableKey;
 
     /**
-     * @ODM\ReferenceOne(targetDocument="Avro\StripeBundle\Document\Plan")
+     * @ODM\ReferenceOne(targetDocument="Avro\StripeBundle\Model\Plan")
      */
     protected $plan;
 
@@ -159,7 +159,7 @@ class User extends BaseUser
         return $this->plan;
     }
 
-    public function setPlan(\Avro\StripeBundle\Document\Plan $plan)
+    public function setPlan(\Avro\StripeBundle\Model\Plan $plan)
     {
         $this->plan = $plan;
         return $this;
@@ -216,7 +216,7 @@ namespace Application\StripeBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-use Avro\StripeBundle\Document\Plan as BasePlan;
+use Avro\StripeBundle\Model\Plan as BasePlan;
 
 /**
  * @ODM\Document

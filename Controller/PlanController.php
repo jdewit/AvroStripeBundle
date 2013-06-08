@@ -7,6 +7,7 @@
 
 namespace Avro\StripeBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -25,11 +26,11 @@ class PlanController extends ContainerAware
     public function listAction($filter)
     {
         switch ($filter) {
-            case 'Deleted':
-                $plans = $this->container->get('avro_stripe.plan.manager')->findDeleted();
+            case 'Disabled':
+                $plans = $this->container->get('avro_stripe.plan.manager')->findBy(array('isActive' => false));
             break;
             default:
-                $plans = $this->container->get('avro_stripe.plan.manager')->findActive();
+                $plans = $this->container->get('avro_stripe.plan.manager')->findBy(array('isActive' => true));
             break;
         }
 
@@ -42,19 +43,27 @@ class PlanController extends ContainerAware
     /**
      * Create new plan
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
         $form = $this->container->get('avro_stripe.plan.form');
-        $formHandler = $this->container->get('avro_stripe.form.handler');
+        $planManager = $this->container->get('avro_stripe.plan.manager');
 
-        try {
-            if ($formHandler->process()) {
-                $this->container->get('session')->setFlash('success', 'plan.created.flash');
+        $plan = $planManager->create();
+
+        $form->setData($plan);
+        if ('POST' == $request->getMethod()) {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                try {
+                    $plan = $planManager->persist($plan);
+                    $request->getSession()->setFlash('success', 'plan.created.flash');
+                } catch(\Stripe_Error $e) {
+                    $request->getSession()->setFlash('error', $e->getMessage());
+                }
 
                 return new RedirectResponse($this->container->get('router')->generate('avro_stripe_plan_list'));
             }
-        } catch(\Stripe_Error $e) {
-            $this->container->get('session')->setFlash('error', $e->getMessage());
         }
 
         return $this->container->get('templating')->renderResponse('AvroStripeBundle:Plan:new.html.twig', array(
@@ -63,25 +72,39 @@ class PlanController extends ContainerAware
     }
 
     /**
-     * Edit a plan
+     * Disable a plan
      */
-    public function editAction($id)
+    public function disableAction($id)
     {
         $plan = $this->container->get('avro_stripe.plan.manager')->find($id);
 
-        $form = $this->container->get('avro_stripe.plan.form');
-        $formHandler = $this->container->get('avro_stripe.form.handler');
+        if ($plan instanceof Plan) {
+            $plan->setIsActive(false);
 
-        if ($formHandler->process($plan)) {
+            $plan = $planManager->update($plan);
+
             $this->container->get('session')->setFlash('success', 'plan.updated.flash');
-
-            return new RedirectResponse($this->container->get('router')->generate('avro_stripe_plan_list'));
         }
 
-        return $this->container->get('templating')->renderResponse('AvroStripeBundle:Plan:edit.html.twig', array(
-            'plan' => $plan,
-            'form' => $form->createView()
-        ));
+        return new RedirectResponse($this->container->get('router')->generate('avro_stripe_plan_list'));
+    }
+
+    /**
+     * Enable a plan
+     */
+    public function enableAction($id)
+    {
+        $plan = $this->container->get('avro_stripe.plan.manager')->find($id);
+
+        if ($plan instanceof Plan) {
+            $plan->setIsActive(true);
+
+            $plan = $planManager->update($plan);
+
+            $this->container->get('session')->setFlash('success', 'plan.updated.flash');
+        }
+
+        return new RedirectResponse($this->container->get('router')->generate('avro_stripe_plan_list'));
     }
 
     /**
@@ -90,15 +113,10 @@ class PlanController extends ContainerAware
     public function deleteAction($id)
     {
         $planManager = $this->container->get('avro_stripe.plan.manager');
-        $stripePlanManager = $this->container->get('avro_stripe.stripe_plan.manager');
 
         $plan = $planManager->find($id);
 
-        //delete on db
         $planManager->delete($plan);
-
-        //delete on stripe
-        $stripePlanManager->delete($plan);
 
         $this->container->get('session')->setFlash('success', 'plan.deleted.flash');
 

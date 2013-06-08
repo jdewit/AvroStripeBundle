@@ -49,12 +49,12 @@ avro_stripe_plan_list:
 avro_stripe_plan_new:
     pattern:   /stripe/plan/new/
     defaults:  { _controller: AvroStripeBundle:Plan:new }
-avro_stripe_plan_edit:
-    pattern:   /stripe/plan/edit/{id}
-    defaults:  { _controller: AvroStripeBundle:Plan:edit }
-avro_stripe_plan_delete:
-    pattern:   /stripe/plan/delete/{id}
-    defaults:  { _controller: AvroStripeBundle:Plan:delete }
+avro_stripe_plan_enable:
+    pattern:   /stripe/plan/enable/{id}
+    defaults:  { _controller: AvroStripeBundle:Plan:enable }
+avro_stripe_plan_disable:
+    pattern:   /stripe/plan/disable/{id}
+    defaults:  { _controller: AvroStripeBundle:Plan:disable }
 avro_stripe_plan_sync:
     pattern:   /stripe/plan/sync
     defaults:  { _controller: AvroStripeBundle:Plan:sync }

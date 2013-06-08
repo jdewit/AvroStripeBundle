@@ -1,0 +1,4 @@
+services:
+    avro_stripe.plan.listener:
+        class: Avro\StripeBundle\Listener\PlanListener
+        argument: ['@avro_stripe.plan.api_helper']

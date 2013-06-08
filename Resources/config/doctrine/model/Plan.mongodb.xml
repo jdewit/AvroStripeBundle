@@ -4,7 +4,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
 http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <mapped-superclass name="Avro\StripeBundle\Document\Plan" collection="avro_stripe_plan">
+    <mapped-superclass name="Avro\StripeBundle\Model\Plan" collection="avro_stripe_plan">
         <field name="name" fieldName="name" type="string" />
         <field name="amount" fieldName="amount" type="string" />
         <field name="currency" fieldName="currency" type="string" />
@@ -18,4 +18,5 @@ http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
             </index>
         </indexes>
     </mapped-superclass>
+
 </doctrine-mongo-mapping>

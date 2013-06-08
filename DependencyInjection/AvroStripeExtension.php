@@ -40,6 +40,10 @@ class AvroStripeExtension extends Extension
 			$loader->load('hook.yml');
 		}
 
+		if ($config['listener_enabled']) {
+			$loader->load('listener.yml');
+		}
+
 //   			\Stripe::setApiKey($container->getParameter('secret_key');
 
         $container->setParameter('avro_stripe.prorate', $config['prorate']);
@@ -53,9 +57,7 @@ class AvroStripeExtension extends Extension
         $container->setParameter('avro_stripe.redirect_routes.account_disconnect', $config['redirect_routes']['account_disconnect']);
 
         $container->setParameter('avro_stripe.plan.class', $config['plan']['class']);
-        $container->setParameter('avro_stripe.plan.form.type', $config['plan']['form']['type']);
-        $container->setParameter('avro_stripe.plan.form.name', $config['plan']['form']['name']);
-        $container->setParameter('avro_stripe.plan.form.handler', $config['plan']['form']['handler']);
+        $container->setParameter('avro_stripe.plan.form.class', $config['plan']['form']['class']);
     }
 }
 

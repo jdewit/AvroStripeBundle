@@ -7,7 +7,7 @@
 
 namespace Avro\StripeBundle\Tests\Document;
 
-use Avro\StripeBundle\Document\Plan as BasePlan;
+use Avro\StripeBundle\Model\Plan as BasePlan;
 use Avro\StripeBundle\Model\PlanInterface;
 use Avro\StripeBundle\Doctrine\PlanManager;
 use Avro\StripeBundle\Tests\StripeTestCommon;
